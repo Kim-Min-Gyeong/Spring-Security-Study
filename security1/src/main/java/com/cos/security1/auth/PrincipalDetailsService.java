@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 //시큐리티 설정에서 SecurityConfig- loginProcessiongUrl("/login");
 // /login 요청이 오면 자동으로 UserDetailsService 타입으로 IoC 타입으로 되어 있는 loadUserByUsername 함수가 실행
 
+//Authentication 객체에 UserDetails 타입을 저장하기 위한 서비스
 @Service
 public class PrincipalDetailsService implements UserDetailsService {
 
-    @Autowired
+    @Autowired //필드 주입 방법(생성자 주입 방법이 가장 좋음)
     private UserRepository userRepository;
 
+    //함수 종료 시 @AuthenticationPrincipal 어노테이션 생성됨.
     //시큐리티 세션 -> Authentication -> UserDetails
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,7 +29,7 @@ public class PrincipalDetailsService implements UserDetailsService {
         //select * from user where username = ?
 
         if(user!=null)
-            return new PrincipalDetails(user);
+            return new PrincipalDetails(user); //Authentication 객체에 저장
 
         return null;
     }

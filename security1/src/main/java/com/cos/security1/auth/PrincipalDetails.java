@@ -10,22 +10,41 @@ package com.cos.security1.auth;
 //정리!
 //시큐리티가 가지고 있는 시큐리티 세션 영역이 존재
 //여기에 Authentication 객체로 세션 정보가 저장되어야 함.
-//Authentication 객체에 유저 정보를 저장하기 위해 사용되는 객체는 UserDetails 객체
+//Authentication 객체에 유저 정보를 저장하기 위해 사용되는 객체는 UserDetails 객체와 OAuth2User
 
 
 import com.cos.security1.domain.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
-public class PrincipalDetails implements UserDetails { //PricipalDetails가 UserDetails가 됨.
+@Data
+public class PrincipalDetails implements UserDetails, OAuth2User { //PricipalDetails가 UserDetails이자 OAuth2User가 됨
+
 
     private User user; //composition
+    private Map<String, Object> attributes;
 
+    //일반 로그인할때 사용하는 생성자
     public PrincipalDetails(User user){ //생성자
         this.user = user;
+    }
+
+    //oauth 로그인할때 사용하는 생성자
+    public PrincipalDetails(User user, Map<String, Object> attributes){ //PrincipalOauth2UserService -> loadUser 메소드에서 사용
+        this.user = user;
+        this.attributes = attributes;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+
+        return attributes;
     }
 
     //해당 유저의 권한을 반환하는 메소드
@@ -77,6 +96,8 @@ public class PrincipalDetails implements UserDetails { //PricipalDetails가 User
     }
 
 
-
-
+    @Override
+    public String getName() {
+        return null;
+    }
 }
