@@ -3,4 +3,4 @@
 /workspace.xml
 
 ### IntelliJ IDEA ###
-application.properties
+*.properties
