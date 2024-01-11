@@ -3,4 +3,4 @@
 /workspace.xml
 
 ### IntelliJ IDEA ###
-*.properties
+security1/src/main/resources/application.properties
