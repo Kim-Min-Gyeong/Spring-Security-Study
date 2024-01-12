@@ -32,7 +32,7 @@ public class IndexController {
     //UserDetails는 일반 로그인, OAuth2User는 OAuth 로그인을 할 경우에 사용
     //로그인 방식에 따라 가져오는 방식이 달라서 불편 -> UserDetails와 OAuth2User를 implements 하는 객체를 생성하여 사용(이 객체는 부모가 UserDetails이면서 OAuth2User-다중상속)
 
-    //PrincipalDetails는 user(일반), userRequest(oauth)를 UserDetails,  OAuth2User 타입으로 넣어주는 매개체 역할
+    //PrincipalDetails는 user(일반), userRequest(oauth)를 UserDetails, OAuth2User 타입으로 넣어주는 매개체 역할
 
     @GetMapping("/test/login") //일반 로그인한 유저의 정보를 가져오는 법 - PrincipalDetails가 UserDetails와 같음
     public @ResponseBody String testLogin(Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails){ //DI(의존성 주입)

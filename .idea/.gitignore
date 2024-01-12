@@ -1,6 +1,3 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-
-### IntelliJ IDEA ###
-src/main/resources/application.properties
